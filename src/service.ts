@@ -1,7 +1,7 @@
 import axios from "axios";
 import "dotenv/config";
 
-export const requestGPTApi = async (thema: string, period: string) => {
+export const requestGPTApi = async (period: string, place: string) => {
   const OPENAI_ENDPOINT = "https://api.openai.com/v1/chat/completions";
   const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
@@ -15,7 +15,10 @@ export const requestGPTApi = async (thema: string, period: string) => {
     messages: [
       {
         role: "user",
-        content: `서울에서 ${thema} 중심으로 ${period}일 간 여행을 하려고 해. 날마다 아침 점심 저녁별로 하나씩 관광지 이름을 키워드 형태로 추천해줘`,
+        content: `${place}에서 ${period}일동안 관광할 수 있는 관광지를 하루에 세곳씩만 추천해주세요.
+        destination에는 관광지의 이름, description은 관광지에 대한 설명, plays에는 해당 관광지에서 즐길 거리 2개를 넣어주세요.
+        다음 키와 함께 JSON 형식으로 제공하십시오: {day1: [{ destination: "", description: "", plays: ["", ""]}]}
+        한국어로 대답하세요.`,
       },
     ],
     temperature: 0.7,
@@ -23,12 +26,8 @@ export const requestGPTApi = async (thema: string, period: string) => {
 
   try {
     const response: any = await axios.post(OPENAI_ENDPOINT, body, { headers });
-    return response.data.choices[0].message.content;
+    return JSON.parse(response.data.choices[0].message.content);
   } catch (e) {
     return "error";
   }
 };
-
-// export const processMessage = (message: string) => {
-
-// }
