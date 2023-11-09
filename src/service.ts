@@ -29,7 +29,9 @@ export const requestGPTApi = async (period: string, place: string) => {
     console.log(JSON.parse(response.data.choices[0].message.content));
     return JSON.parse(response.data.choices[0].message.content);
   } catch (e) {
-    console.error(e);
+    if (axios.isAxiosError(e)) {
+      console.log(e.response);
+    }
     return "error";
   }
 };
