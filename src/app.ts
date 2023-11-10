@@ -8,7 +8,7 @@ const PORT = 3000;
 app.use(express.json());
 
 app.post("/api", async (req: Request, res: Response) => {
-  const period = req.body.travelPeriod;
+  const period = req.body.period;
   const place = req.body.place;
   const response = await requestGPTApi(period, place);
 

@@ -10,7 +10,6 @@ export const requestGPTApi = async (period: string, place: string) => {
     "Content-Type": "application/json",
   };
 
-  console.log(place + period);
   const body = {
     // model: "gpt-3.5-turbo",
     model: "gpt-3.5-turbo-1106",
