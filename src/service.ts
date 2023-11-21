@@ -1,7 +1,7 @@
 import axios from "axios";
 import "dotenv/config";
 
-export const requestGPTApi = async (period: string, place: string) => {
+export const requestGPTApi = async (duration: string, destination: string) => {
   const OPENAI_ENDPOINT = "https://api.openai.com/v1/chat/completions";
   const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
@@ -16,7 +16,7 @@ export const requestGPTApi = async (period: string, place: string) => {
     messages: [
       {
         role: "user",
-        content: `${place}에서 ${period}일동안 관광할 수 있는 관광지를 각 날짜마다 세곳씩만 추천해주세요.
+        content: `${destination}에서 ${duration}일동안 관광할 수 있는 관광지를 각 날짜마다 세곳씩만 추천해주세요.
         day에는 몇 일차 여행인지, destination에는 관광지의 이름, description은 관광지에 대한 설명, plays에는 해당 관광지에서 즐길 거리 2개를 넣어주세요.
         다음 키와 함께 JSON 형식으로 제공하십시오: { list: [{ day: 1, destination: "", description: "", plays: ["", ""]}]}
         한국어로 대답하세요.`,
