@@ -1,11 +1,13 @@
 import express, { Request, Response } from "express";
 import { requestGPTApi } from "./service";
+import cors from "cors";
 
 const app = express();
 
 const PORT = 3000;
 
 app.use(express.json());
+app.use(cors());
 
 app.get("/api", async (req: Request, res: Response) => {
   const duration = req.query.duration as string;
