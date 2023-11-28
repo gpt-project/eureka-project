@@ -29,11 +29,8 @@ export const requestGPTApi = async (duration: string, destination: string) => {
     const response: any = await axios.post(OPENAI_ENDPOINT, body, { headers });
     return JSON.parse(response.data.choices[0].message.content);
   } catch (e) {
-    if (axios.isAxiosError(e)) {
-      console.error(e.response);
-      return "error";
-    }
-    console.error(e);
+    axios.isAxiosError(e) ? console.error(e.response) : console.error(e);
+
     return "error";
   }
 };
